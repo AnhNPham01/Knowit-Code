@@ -104,9 +104,10 @@ public class AppTest {
         double totalEarnings = app.getTotalEarningsForRoom(room.getRoomId());
         assertEquals(200.0, totalEarnings);
     }
-
+/* 
     @Test
     public void testGetRoomsSortedByEarnings() {
+        App app1 = new App();
         BookingService bookingService1 = new BookingService();
         Room room1 = new Room(1, 2, 200.0, Room.RoomType.BRYLLUPSUITE);
         Room room2 = new Room(2, 3, 250.0, Room.RoomType.BRYLLUPSUITE);
@@ -118,13 +119,31 @@ public class AppTest {
         bookingService1.addBooking(booking2);
         bookingService1.addRoom(room1);
         bookingService1.addRoom(room2);
+        app1.bookRoom(booking1);
 
-        List<Room> rooms = bookingService1.getRooms();
-        List<Booking> bookings = bookingService1.getBookings();
-        assertEquals(2, bookings.size());
+        List<Room> rooms = app1.getRoomsSortedByEarnings();
         assertEquals(2, rooms.size());
         assertEquals(room1, rooms.get(0)); // room2 has higher earnings
         assertEquals(room2, rooms.get(1));
+    } */
+
+    @Test
+    public void testGetRoomsSortedByEarnings() {
+        App app1 = new App();
+
+        Room room1 = new Room(1, 2, 200.0, Room.RoomType.BRYLLUPSUITE);
+        Room room2 = new Room(2, 3, 250.0, Room.RoomType.BRYLLUPSUITE);
+
+        Booking booking1 = new Booking(1, room1, 2, new Date());
+        Booking booking2 = new Booking(2, room2, 3, new Date());
+
+        app1.bookingService.addBooking(booking1);
+        app1.bookingService.addBooking(booking2);
+
+        List<Room> rooms1 = app1.getRoomsSortedByEarnings();
+        assertEquals(6, rooms1.size());
+        assertEquals(room2, rooms1.get(0)); // room2 has higher earnings
+        assertEquals(room1, rooms1.get(1));
     }
 }
 
